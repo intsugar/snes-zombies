@@ -28,9 +28,9 @@
       overflow: hidden;
     }
 
-    /* ── CONSOLE TOP — SNES warm off-white gray ── */
+    /* ── CONSOLE TOP — match bottom color ── */
     #console-top {
-      background: #ccc8c0;
+      background: #c0bcb4;
       padding: 7px 7px 5px;
       display: flex;
       flex-direction: column;
@@ -343,8 +343,10 @@
 <body>
 <div id="console">
 
-  <!-- TOP: screen then system label centered below -->
+  <!-- TOP: system label → screen → led → game title -->
   <div id="console-top">
+
+    <div class="system-label">Super Nintendo</div>
 
     <div id="screen-bezel">
       <div id="screen-wrapper">
@@ -357,8 +359,6 @@
       <div id="power-led"></div>
       <div id="cart-slot"></div>
     </div>
-
-    <div class="system-label">Super Nintendo</div>
 
     <div class="game-title">Zombies Ate My Neighbors</div>
   </div>
