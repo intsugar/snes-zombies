@@ -136,7 +136,7 @@
     /* ── CONSOLE BOTTOM (CONTROLLER) ── */
     #console-bottom {
       background: #7a7a8e;
-      padding: 0 10px 20px;
+      padding: 0 10px 46px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -182,8 +182,8 @@
       display: flex;
       width: 100%;
       align-items: center;
-      justify-content: space-between;
-      gap: 6px;
+      justify-content: center;
+      gap: 16px;
       min-height: 130px;
     }
 
@@ -254,28 +254,37 @@
       box-shadow: 0 1px 0 #2a2a40;
     }
 
-    /* ── FACE BUTTONS ── */
-    #face-buttons {
+    /* ── FACE BUTTONS PLATFORM ── */
+    #face-platform {
       flex: 0 0 auto;
-      display: grid;
-      grid-template-columns: 44px 44px 44px;
-      grid-template-rows: 44px 44px 44px;
-      gap: 4px;
-      /* Layout:
-         . X .
-         Y . A
-         . B .
-      */
+      position: relative;
+      width: 148px;
+      height: 148px;
+      background: radial-gradient(circle at 42% 38%, #a0a0b8, #7a7a92);
+      border-radius: 50%;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.35), 0 3px 8px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+    }
+
+    .face-row {
+      display: flex;
+      gap: 10px;
     }
 
     .face-btn {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border: none;
       border-radius: 50%;
       font-family: 'Courier New', monospace;
-      font-size: 0.78rem;
+      font-size: 0.68rem;
       font-weight: bold;
+      color: rgba(255,255,255,0.9);
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
@@ -284,27 +293,15 @@
       align-items: center;
       justify-content: center;
       letter-spacing: 0;
-      /* American version: all buttons same dark gray body */
-      background: radial-gradient(circle at 38% 32%, #6a6a82, #3e3e58);
-      box-shadow: 0 4px 0 #252538, 0 5px 8px rgba(0,0,0,0.4);
+      /* All same purple — American SNES */
+      background: radial-gradient(circle at 38% 32%, #b0a0dd, #7a68bb);
+      box-shadow: 0 4px 0 #5548a0, 0 5px 8px rgba(0,0,0,0.4);
     }
 
     .face-btn:active {
       transform: scale(0.92);
-      box-shadow: 0 1px 0 #252538;
+      box-shadow: 0 1px 0 #5548a0;
     }
-
-    /* empty grid cells */
-    .face-empty {
-      width: 44px;
-      height: 44px;
-    }
-
-    /* Only the letter color differs — American SNES style */
-    #btn-x { color: #6699ff; grid-column: 2; grid-row: 1; }
-    #btn-y { color: #44cc66; grid-column: 1; grid-row: 2; }
-    #btn-a { color: #ff4444; grid-column: 3; grid-row: 2; }
-    #btn-b { color: #ddcc00; grid-column: 2; grid-row: 3; }
 
     /* Loading overlay */
     #loading {
@@ -382,17 +379,16 @@
         <button class="mid-btn" id="btn-start"  aria-label="Start">START</button>
       </div>
 
-      <!-- Face buttons grid -->
-      <div id="face-buttons">
-        <div class="face-empty"></div>
-        <button class="face-btn" id="btn-x" aria-label="X">X</button>
-        <div class="face-empty"></div>
-        <button class="face-btn" id="btn-y" aria-label="Y">Y</button>
-        <div class="face-empty"></div>
-        <button class="face-btn" id="btn-a" aria-label="A">A</button>
-        <div class="face-empty"></div>
-        <button class="face-btn" id="btn-b" aria-label="B">B</button>
-        <div class="face-empty"></div>
+      <!-- Face buttons: 2×2 on circular platform (American SNES layout) -->
+      <div id="face-platform">
+        <div class="face-row">
+          <button class="face-btn" id="btn-y" aria-label="Y">Y</button>
+          <button class="face-btn" id="btn-x" aria-label="X">X</button>
+        </div>
+        <div class="face-row">
+          <button class="face-btn" id="btn-b" aria-label="B">B</button>
+          <button class="face-btn" id="btn-a" aria-label="A">A</button>
+        </div>
       </div>
 
     </div><!-- /controls-row -->
