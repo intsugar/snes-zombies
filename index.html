@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Zombies Ate My Neighbors — Super Nintendo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
+
+    body {
+      background: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      font-family: 'Courier New', monospace;
+      padding: 10px 0 20px;
+      overflow-x: hidden;
+    }
+
+    #console {
+      width: 95vw;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 18px 18px 40px 40px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 2px 4px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+
+    /* ── CONSOLE TOP ── */
+    #console-top {
+      background: #8c8c9e;
+      padding: 14px 14px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .system-label {
+      color: #3a3a5c;
+      font-size: 0.62rem;
+      font-weight: bold;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      align-self: flex-start;
+    }
+
+    /* Screen */
+    #screen-bezel {
+      width: 100%;
+      background: #2a2a3e;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.6), inset 0 0 0 2px #1a1a2a;
+    }
+
+    #screen-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 75%; /* SNES native 256×224 ≈ 8:7 ratio → ~87.5%, use ~75% for comfortable display */
+      background: #000;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    #game {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    #game canvas {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      image-rendering: pixelated;
+    }
+
+    /* scanlines */
+    #screen-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.04) 3px,
+        rgba(0,0,0,0.04) 4px
+      );
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* LED + eject row */
+    #led-row {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 8px;
+      padding: 0 4px;
+    }
+
+    #power-led {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #44ee44;
+      box-shadow: 0 0 6px #44ee44, 0 0 12px rgba(68,238,68,0.5);
+      animation: blink 3s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 90%, 100% { opacity: 1; }
+      95% { opacity: 0.3; }
+    }
+
+    #cart-slot {
+      flex: 1;
+      height: 5px;
+      background: #6a6a7e;
+      border-radius: 2px;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    .game-title {
+      color: #3a3a5c;
+      font-size: 0.5rem;
+      font-weight: bold;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ── CONSOLE BOTTOM (CONTROLLER) ── */
+    #console-bottom {
+      background: #7a7a8e;
+      padding: 0 10px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      border-radius: 0 0 40px 40px;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Shoulder buttons row */
+    #shoulder-row {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      padding: 0 0 8px;
+      margin-top: -2px;
+    }
+
+    .shoulder-btn {
+      background: #5a5a70;
+      color: #ccc;
+      font-family: 'Courier New', monospace;
+      font-size: 0.6rem;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 0 0 10px 10px;
+      width: 52px;
+      height: 22px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #3a3a50, 0 4px 4px rgba(0,0,0,0.4);
+      user-select: none;
+      -webkit-user-select: none;
+      transition: transform 0.06s, box-shadow 0.06s;
+    }
+
+    .shoulder-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #3a3a50;
+    }
+
+    /* Main controls row */
+    #controls-row {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      min-height: 130px;
+    }
+
+    /* ── D-PAD (Virtual Joystick) ── */
+    #dpad-area {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #joystick-container {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle at 40% 35%, #4a4a62, #2a2a3e);
+      border-radius: 50%;
+      border: 2px solid #3a3a52;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
+      touch-action: none;
+      cursor: pointer;
+    }
+
+    #joystick-stick {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at 35% 30%, #7a7a9a, #4a4a6a);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid #3a3a5a;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      pointer-events: none;
+      transition: transform 0.05s ease-out;
+      will-change: transform;
+    }
+
+    /* ── CENTER BUTTONS ── */
+    #center-buttons {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mid-btn {
+      background: #4a4a60;
+      color: #aaa;
+      font-family: 'Courier New', monospace;
+      font-size: 0.42rem;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 10px;
+      width: 52px;
+      height: 16px;
+      cursor: pointer;
+      box-shadow: 0 2px 0 #2a2a40, 0 3px 4px rgba(0,0,0,0.4);
+      user-select: none;
+      -webkit-user-select: none;
+      transition: transform 0.06s, box-shadow 0.06s;
+    }
+
+    .mid-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 #2a2a40;
+    }
+
+    /* ── FACE BUTTONS ── */
+    #face-buttons {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: 44px 44px 44px;
+      grid-template-rows: 44px 44px 44px;
+      gap: 4px;
+      /* Layout:
+         . X .
+         Y . A
+         . B .
+      */
+    }
+
+    .face-btn {
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 50%;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: rgba(0,0,0,0.5);
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: transform 0.06s, box-shadow 0.06s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0;
+    }
+
+    .face-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* empty grid cells */
+    .face-empty {
+      width: 44px;
+      height: 44px;
+    }
+
+    #btn-x {
+      background: radial-gradient(circle at 35% 30%, #7799ee, #4466cc);
+      box-shadow: 0 4px 0 #2244aa, 0 5px 8px rgba(0,0,0,0.4);
+      color: rgba(255,255,255,0.7);
+      grid-column: 2; grid-row: 1;
+    }
+    #btn-x:active { box-shadow: 0 1px 0 #2244aa; }
+
+    #btn-y {
+      background: radial-gradient(circle at 35% 30%, #55bb66, #228844);
+      box-shadow: 0 4px 0 #115522, 0 5px 8px rgba(0,0,0,0.4);
+      color: rgba(255,255,255,0.7);
+      grid-column: 1; grid-row: 2;
+    }
+    #btn-y:active { box-shadow: 0 1px 0 #115522; }
+
+    #btn-a {
+      background: radial-gradient(circle at 35% 30%, #ff6666, #dd2222);
+      box-shadow: 0 4px 0 #991111, 0 5px 8px rgba(0,0,0,0.4);
+      color: rgba(255,255,255,0.7);
+      grid-column: 3; grid-row: 2;
+    }
+    #btn-a:active { box-shadow: 0 1px 0 #991111; }
+
+    #btn-b {
+      background: radial-gradient(circle at 35% 30%, #ffdd44, #ccaa00);
+      box-shadow: 0 4px 0 #887700, 0 5px 8px rgba(0,0,0,0.4);
+      color: rgba(0,0,0,0.5);
+      grid-column: 2; grid-row: 3;
+    }
+    #btn-b:active { box-shadow: 0 1px 0 #887700; }
+
+    /* Loading overlay */
+    #loading {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8c8c9e;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      z-index: 100;
+    }
+
+    /* Desktop hint */
+    #kb-hint {
+      color: #555;
+      font-size: 0.48rem;
+      letter-spacing: 0.08em;
+      text-align: center;
+      padding: 6px 0 0;
+      display: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      #kb-hint { display: block; }
+    }
+  </style>
+</head>
+<body>
+<div id="console">
+
+  <!-- TOP: system label + screen -->
+  <div id="console-top">
+    <div class="system-label">Super Nintendo</div>
+
+    <div id="screen-bezel">
+      <div id="screen-wrapper">
+        <div id="loading">LOADING…</div>
+        <div id="game"></div>
+      </div>
+    </div>
+
+    <div id="led-row">
+      <div id="power-led"></div>
+      <div id="cart-slot"></div>
+    </div>
+
+    <div class="game-title">Zombies Ate My Neighbors</div>
+  </div>
+
+  <!-- BOTTOM: controller -->
+  <div id="console-bottom">
+
+    <!-- Shoulder buttons -->
+    <div id="shoulder-row">
+      <button class="shoulder-btn" id="btn-l" aria-label="L">L</button>
+      <button class="shoulder-btn" id="btn-r" aria-label="R">R</button>
+    </div>
+
+    <!-- Main control row: D-pad · Select/Start · ABXY -->
+    <div id="controls-row">
+
+      <!-- D-pad joystick -->
+      <div id="dpad-area">
+        <div id="joystick-container">
+          <div id="joystick-stick"></div>
+        </div>
+      </div>
+
+      <!-- Select / Start -->
+      <div id="center-buttons">
+        <button class="mid-btn" id="btn-select" aria-label="Select">SELECT</button>
+        <button class="mid-btn" id="btn-start"  aria-label="Start">START</button>
+      </div>
+
+      <!-- Face buttons grid -->
+      <div id="face-buttons">
+        <div class="face-empty"></div>
+        <button class="face-btn" id="btn-x" aria-label="X">X</button>
+        <div class="face-empty"></div>
+        <button class="face-btn" id="btn-y" aria-label="Y">Y</button>
+        <div class="face-empty"></div>
+        <button class="face-btn" id="btn-a" aria-label="A">A</button>
+        <div class="face-empty"></div>
+        <button class="face-btn" id="btn-b" aria-label="B">B</button>
+        <div class="face-empty"></div>
+      </div>
+
+    </div><!-- /controls-row -->
+
+    <div id="kb-hint">
+      ARROWS · Z=B · A=Y · X=A · S=X · Q=L · W=R · ENTER=START · SHIFT=SELECT
+    </div>
+
+  </div><!-- /console-bottom -->
+</div><!-- /console -->
+
+<script src="SuperNintendo.min.js"></script>
+<script>
+  // ── Key mapping ──────────────────────────────────────────────────────────
+  var player1Keys = {
+    up: 'ArrowUp', down: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight',
+    b: 'KeyZ', y: 'KeyA', a: 'KeyX', x: 'KeyS',
+    l: 'KeyQ', r: 'KeyW',
+    start: 'Enter', select: 'ShiftRight'
+  };
+
+  function simKey(code, type) {
+    document.dispatchEvent(new KeyboardEvent(type, { code: code, key: code, bubbles: true }));
+  }
+
+  // ── Load ROM & launch emulator ───────────────────────────────────────────
+  fetch('rom.sfc')
+    .then(r => r.arrayBuffer())
+    .then(function(rom) {
+      document.getElementById('loading').style.display = 'none';
+      embedSuperNintendo({
+        container:          'game',
+        name:               'rom.sfc',
+        rom:                rom,
+        soundEnabled:       true,
+        showMobileControls: false,
+        player1:            player1Keys,
+        cbStarted: function() {
+          document.getElementById('loading').style.display = 'none';
+        }
+      });
+    })
+    .catch(function(e) {
+      document.getElementById('loading').textContent = 'ERROR LOADING ROM';
+      console.error(e);
+    });
+
+  // ── Button helpers ───────────────────────────────────────────────────────
+  var btnKeyMap = {
+    'btn-b':      player1Keys.b,
+    'btn-y':      player1Keys.y,
+    'btn-a':      player1Keys.a,
+    'btn-x':      player1Keys.x,
+    'btn-l':      player1Keys.l,
+    'btn-r':      player1Keys.r,
+    'btn-start':  player1Keys.start,
+    'btn-select': player1Keys.select
+  };
+
+  Object.keys(btnKeyMap).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var code = btnKeyMap[id];
+
+    el.addEventListener('touchstart', function(e) {
+      e.preventDefault(); simKey(code, 'keydown');
+    }, { passive: false });
+    el.addEventListener('touchend', function(e) {
+      e.preventDefault(); simKey(code, 'keyup');
+    }, { passive: false });
+    el.addEventListener('mousedown', function(e) {
+      e.preventDefault(); simKey(code, 'keydown');
+    });
+    el.addEventListener('mouseup', function(e) {
+      e.preventDefault(); simKey(code, 'keyup');
+    });
+    el.addEventListener('mouseleave', function(e) {
+      simKey(code, 'keyup');
+    });
+  });
+
+  // ── Virtual joystick ─────────────────────────────────────────────────────
+  (function() {
+    var container = document.getElementById('joystick-container');
+    var stick     = document.getElementById('joystick-stick');
+    var touching  = false;
+    var centerX, centerY, radius;
+    var dirs = { up: false, down: false, left: false, right: false };
+    var dirKeys = {
+      up:    player1Keys.up,
+      down:  player1Keys.down,
+      left:  player1Keys.left,
+      right: player1Keys.right
+    };
+
+    function updateCenter() {
+      var r = container.getBoundingClientRect();
+      centerX = r.left + r.width  / 2;
+      centerY = r.top  + r.height / 2;
+      radius  = r.width / 2;
+    }
+
+    function setDir(dir, active) {
+      if (dirs[dir] === active) return;
+      dirs[dir] = active;
+      simKey(dirKeys[dir], active ? 'keydown' : 'keyup');
+    }
+
+    function processInput(clientX, clientY) {
+      var dx = clientX - centerX;
+      var dy = clientY - centerY;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var maxDist = radius * 0.7;
+
+      // move stick visual
+      var sx = Math.min(Math.max(dx, -maxDist), maxDist);
+      var sy = Math.min(Math.max(dy, -maxDist), maxDist);
+      stick.style.transform = 'translate(calc(-50% + ' + sx + 'px), calc(-50% + ' + sy + 'px))';
+
+      if (dist < radius * 0.3) {
+        // dead zone
+        setDir('up',    false);
+        setDir('down',  false);
+        setDir('left',  false);
+        setDir('right', false);
+        return;
+      }
+
+      var angle = Math.atan2(dy, dx); // -π to π
+
+      setDir('up',    angle > -2.75 && angle < -0.39);
+      setDir('down',  angle >  0.39 && angle <  2.75);
+      setDir('left',  Math.abs(angle) > 1.96);
+      setDir('right', Math.abs(angle) < 1.18);
+    }
+
+    function releaseAll() {
+      setDir('up',    false);
+      setDir('down',  false);
+      setDir('left',  false);
+      setDir('right', false);
+      stick.style.transform = 'translate(-50%, -50%)';
+      touching = false;
+    }
+
+    container.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      touching = true;
+      updateCenter();
+      var t = e.touches[0];
+      processInput(t.clientX, t.clientY);
+    }, { passive: false });
+
+    container.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      if (!touching) return;
+      var t = e.touches[0];
+      processInput(t.clientX, t.clientY);
+    }, { passive: false });
+
+    container.addEventListener('touchend',   function(e) { e.preventDefault(); releaseAll(); }, { passive: false });
+    container.addEventListener('touchcancel',function(e) { e.preventDefault(); releaseAll(); }, { passive: false });
+
+    // Mouse fallback for desktop testing
+    container.addEventListener('mousedown', function(e) {
+      touching = true;
+      updateCenter();
+      processInput(e.clientX, e.clientY);
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!touching) return;
+      processInput(e.clientX, e.clientY);
+    });
+    window.addEventListener('mouseup', function(e) {
+      if (touching) releaseAll();
+    });
+  })();
+</script>
+</body>
+</html>
