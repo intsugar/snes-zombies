@@ -275,76 +275,95 @@
     /* ── FACE BUTTONS — 2×2 on recessed circular well ── */
     #face-platform {
       flex: 0 0 auto;
-      width: 156px;
-      height: 156px;
-      /* Deep recessed well — clearly darker mauve, distinct from body */
+      position: relative;          /* needed for absolute label positioning */
+      width: 160px;
+      height: 160px;
+      /*
+        Platform matches photo: medium lavender-gray, clearly distinct
+        from the warm-gray body but NOT as dark as pure mauve.
+        Photo shows ~#9090a8 tone with slight depth.
+      */
       background:
-        radial-gradient(ellipse at 48% 42%, #706e82, #48465a);
+        radial-gradient(ellipse at 46% 40%, #9e9cb4, #7e7c96);
       border-radius: 50%;
-      /* Strong inset shadow = deep cavity feel; thin top rim catch-light */
       box-shadow:
-        inset 0 6px 18px rgba(0,0,0,0.55),
-        inset 0 2px 6px rgba(0,0,0,0.35),
-        0 0 0 2px rgba(255,255,255,0.08),   /* subtle rim highlight */
-        0 3px 8px rgba(0,0,0,0.25);
+        inset 0 5px 14px rgba(0,0,0,0.38),
+        inset 0 2px 4px rgba(0,0,0,0.20),
+        0 0 0 1.5px rgba(255,255,255,0.12),   /* rim catch-light */
+        0 3px 8px rgba(0,0,0,0.22);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 11px;
-      padding: 24px;
+      gap: 10px;
+      padding: 22px;
     }
+
+    /* Labels float in the gray platform — not on the button caps */
+    .face-label {
+      position: absolute;
+      font-family: Arial, sans-serif;
+      font-size: 0.58rem;
+      font-weight: 600;
+      /*
+        From photo: letters are same lavender as body text — muted,
+        not white, not neon. Barely-there but legible.
+      */
+      color: rgba(210, 205, 235, 0.82);
+      letter-spacing: 0.04em;
+      pointer-events: none;
+      user-select: none;
+    }
+    /* Corner positions matching 2×2 layout */
+    #lbl-x { top:  11px; left:  20px; }   /* top-left  */
+    #lbl-y { top:  11px; right: 20px; }   /* top-right */
+    #lbl-b { bottom: 11px; left:  20px; } /* btm-left  */
+    #lbl-a { bottom: 11px; right: 20px; } /* btm-right */
 
     .face-row {
       display: flex;
-      gap: 11px;
+      gap: 10px;
     }
 
     .face-btn {
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
       border: none;
       border-radius: 50%;
-      font-family: 'Courier New', monospace;
-      font-size: 0.62rem;
-      font-weight: bold;
-      /* Embossed-feel label: soft white, not harsh */
-      color: rgba(255,255,255,0.60);
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      /* No text on cap — labels float in well */
+      font-size: 0;
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
       transition: transform 0.07s, box-shadow 0.07s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      letter-spacing: 0;
       /*
-        Glossy dome cap:
-        – Layer 1: sharp oval specular highlight upper-left (mimics light on a dome)
-        – Layer 2: soft secondary sheen band
-        – Layer 3: base lavender/purple gradient
+        Glossy dome cap — 3 gradient layers:
+        1. Strong oval specular at upper-left (light catching convex surface)
+        2. Faint lower bounce-light
+        3. Lavender base matching photo
       */
       background:
-        radial-gradient(ellipse at 40% 22%, rgba(255,255,255,0.60) 0%,
-                                             rgba(255,255,255,0.18) 36%,
-                                             transparent 55%),
-        radial-gradient(ellipse at 60% 80%, rgba(255,255,255,0.06) 0%,
-                                             transparent 50%),
-        radial-gradient(circle at 50% 50%, #c4b4ec, #7a68c0);
+        radial-gradient(ellipse 55% 45% at 38% 24%,
+          rgba(255,255,255,0.70) 0%,
+          rgba(255,255,255,0.22) 35%,
+          transparent 58%),
+        radial-gradient(ellipse at 62% 78%,
+          rgba(255,255,255,0.07) 0%,
+          transparent 45%),
+        radial-gradient(circle at 50% 55%, #b4a8e4, #7868bc);
       box-shadow:
-        0 4px 0 #4e3e98,                        /* hard bottom shadow = depth */
-        0 6px 12px rgba(0,0,0,0.40),
-        inset 0 -3px 5px rgba(0,0,0,0.22),      /* bottom inner shadow = dome curve */
-        inset 0 2px 2px rgba(255,255,255,0.18); /* top inner rim catch-light */
+        0 4px 0 rgba(60,48,140,0.70),       /* hard cast shadow = raised dome */
+        0 6px 14px rgba(0,0,0,0.36),
+        inset 0 -4px 6px rgba(0,0,0,0.20),  /* lower inside shadow = curvature */
+        inset 0 2px 3px rgba(255,255,255,0.22); /* top rim light */
     }
 
     .face-btn:active {
-      transform: scale(0.90);
+      transform: scale(0.91);
       box-shadow:
-        0 1px 0 #4e3e98,
-        0 2px 4px rgba(0,0,0,0.35),
-        inset 0 3px 8px rgba(0,0,0,0.40);
+        0 1px 0 rgba(60,48,140,0.60),
+        0 2px 5px rgba(0,0,0,0.30),
+        inset 0 4px 10px rgba(0,0,0,0.42);
     }
 
     /* Loading overlay */
@@ -430,15 +449,20 @@
         </div>
       </div>
 
-      <!-- Face buttons: 2×2 grid — X top-left, Y top-right, B bottom-left, A bottom-right -->
+      <!-- Face buttons: 2×2 — X top-left, Y top-right, B btm-left, A btm-right -->
+      <!-- Labels float in the well, not on the caps (matches real controller) -->
       <div id="face-platform">
+        <span class="face-label" id="lbl-x" aria-hidden="true">X</span>
+        <span class="face-label" id="lbl-y" aria-hidden="true">Y</span>
+        <span class="face-label" id="lbl-b" aria-hidden="true">B</span>
+        <span class="face-label" id="lbl-a" aria-hidden="true">A</span>
         <div class="face-row">
-          <button class="face-btn" id="btn-x" aria-label="X">X</button>
-          <button class="face-btn" id="btn-y" aria-label="Y">Y</button>
+          <button class="face-btn" id="btn-x" aria-label="X"></button>
+          <button class="face-btn" id="btn-y" aria-label="Y"></button>
         </div>
         <div class="face-row">
-          <button class="face-btn" id="btn-b" aria-label="B">B</button>
-          <button class="face-btn" id="btn-a" aria-label="A">A</button>
+          <button class="face-btn" id="btn-b" aria-label="B"></button>
+          <button class="face-btn" id="btn-a" aria-label="A"></button>
         </div>
       </div>
 
