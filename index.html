@@ -4,58 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Zombies Ate My Neighbors — Super Nintendo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; touch-action: manipulation; }
 
     body {
-      background: #2a2a38;
+      background: #0f0e17;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
+      font-family: 'Press Start 2P', monospace;
       padding: 10px 0 20px;
       overflow-x: hidden;
+      image-rendering: pixelated;
     }
 
-    /* ── Console shell — matches flat illustration light cool gray ── */
+    /* ══════════════════════════════════════════
+       8-BIT PIXEL STYLE — Press Start 2P font
+       Hard pixel shadows · flat colors · blocky
+       ══════════════════════════════════════════ */
+
     #console {
       width: 95vw;
       max-width: 520px;
       display: flex;
       flex-direction: column;
-      border-radius: 16px 16px 42px 42px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
+      border-radius: 6px;
+      /* Pixel-style hard border + offset shadow */
+      outline: 3px solid #6a6878;
+      box-shadow: 6px 6px 0 #3a3848, 0 0 0 6px #0f0e17;
       overflow: hidden;
     }
 
-    /* ── TOP — same cool flat gray as illustration body ── */
+    /* ── TOP ── */
     #console-top {
-      background: #c8c4ca;
+      background: #b8b4bc;
       padding: 8px 8px 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
+      border-bottom: 3px solid #8a8898;
     }
 
-    /* System label: very subtle embossed, like illustration text */
     .system-label {
-      color: #aeaab4;
-      font-size: 0.50rem;
-      font-weight: 700;
-      letter-spacing: 0.30em;
+      font-family: 'Press Start 2P', monospace;
+      color: #7a7888;
+      font-size: 0.40rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       text-align: center;
+      text-shadow: 1px 1px 0 #4a4858;
     }
 
-    /* Screen bezel */
+    /* Screen — thick pixel bezel */
     #screen-bezel {
       width: 100%;
-      background: #1e1c28;
-      border-radius: 5px;
-      padding: 5px;
-      box-shadow: inset 0 3px 8px rgba(0,0,0,0.7);
+      background: #0a0a10;
+      border: 3px solid #1a1828;
+      padding: 4px;
+      box-shadow:
+        inset 3px 3px 0 #000,
+        3px 3px 0 #4a4858;
     }
 
     #screen-wrapper {
@@ -64,7 +76,6 @@
       padding-bottom: 75%;
       background: #000;
       overflow: hidden;
-      border-radius: 3px;
     }
 
     #game {
@@ -80,14 +91,15 @@
       image-rendering: pixelated;
     }
 
+    /* CRT scanlines — stronger for 8-bit feel */
     #screen-wrapper::after {
       content: '';
       position: absolute;
       inset: 0;
       background: repeating-linear-gradient(
         to bottom,
-        transparent 0px, transparent 3px,
-        rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px
+        transparent 0px, transparent 2px,
+        rgba(0,0,0,0.18) 2px, rgba(0,0,0,0.18) 4px
       );
       pointer-events: none;
       z-index: 10;
@@ -98,49 +110,49 @@
       width: 100%;
       align-items: center;
       gap: 6px;
-      padding: 0 3px;
+      padding: 0 2px;
     }
 
+    /* Square pixel LED */
     #power-led {
-      width: 7px; height: 7px;
-      border-radius: 50%;
+      width: 6px; height: 6px;
+      border-radius: 0;            /* square! */
       background: #ee2222;
-      box-shadow: 0 0 5px #ee2222, 0 0 10px rgba(238,34,34,0.4);
+      box-shadow: 2px 2px 0 #880000;
       animation: blink 3s ease-in-out infinite;
     }
 
     @keyframes blink {
       0%, 90%, 100% { opacity: 1; }
-      95% { opacity: 0.25; }
+      95%           { opacity: 0.2; }
     }
 
     #cart-slot {
       flex: 1;
-      height: 4px;
-      background: #b4b0b8;
-      border-radius: 2px;
+      height: 3px;
+      background: #8a8898;
     }
 
     .game-title {
-      color: #a8a4b0;
-      font-size: 0.44rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      font-family: 'Press Start 2P', monospace;
+      color: #6a6878;
+      font-size: 0.34rem;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       text-align: center;
+      text-shadow: 1px 1px 0 #3a3848;
     }
 
-    /* ── BOTTOM — identical flat gray, seamless ── */
+    /* ── BOTTOM ── */
     #console-bottom {
-      background: #c8c4ca;
-      padding: 0 10px 54px;
+      background: #b8b4bc;
+      padding: 0 10px 50px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      border-radius: 0 0 42px 42px;
     }
 
-    /* Shoulder buttons */
+    /* Shoulder buttons — blocky pixel style */
     #shoulder-row {
       display: flex;
       width: 100%;
@@ -150,26 +162,24 @@
     }
 
     .shoulder-btn {
-      background: #b8b4bc;
-      color: #8a8690;
-      font-family: Arial, sans-serif;
-      font-size: 0.55rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      border: none;
-      border-radius: 0 0 10px 10px;
-      width: 50px;
+      background: #9a98a4;
+      color: #d0ccdc;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.40rem;
+      border: 2px solid #6a6878;
+      border-radius: 0 0 4px 4px;
+      width: 48px;
       height: 20px;
       cursor: pointer;
-      box-shadow: 0 3px 0 #9e9aa4, 0 4px 6px rgba(0,0,0,0.20);
+      box-shadow: 3px 3px 0 #4a4858;
       user-select: none;
       -webkit-user-select: none;
       transition: transform 0.06s, box-shadow 0.06s;
     }
 
     .shoulder-btn:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #9e9aa4;
+      transform: translate(3px, 3px);
+      box-shadow: none;
     }
 
     /* ── Controls row ── */
@@ -178,13 +188,12 @@
       width: 100%;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      min-height: 152px;
+      gap: 10px;
+      min-height: 155px;
     }
 
     /* ── D-PAD
-       Outer circle: barely distinguishable from body (illustration style)
-       Stick: flat dark charcoal cross
+       Flat circle platform + dark cross stick
     ── */
     #dpad-area {
       flex: 0 0 auto;
@@ -195,12 +204,12 @@
 
     #joystick-container {
       position: relative;
-      width: 110px;
-      height: 110px;
-      /* Very subtle circle — just slightly darker than body */
-      background: #bab6be;
+      width: 108px;
+      height: 108px;
+      background: #a8a4b0;
       border-radius: 50%;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+      border: 3px solid #6a6878;
+      box-shadow: 3px 3px 0 #4a4858;
       touch-action: none;
       cursor: pointer;
     }
@@ -208,165 +217,157 @@
     #joystick-stick {
       position: absolute;
       top: 50%; left: 50%;
-      width: 50px;
-      height: 50px;
-      /* Flat dark charcoal — matches d-pad cross in illustration */
-      background: #4e4c4e;
+      width: 48px;
+      height: 48px;
+      background: #3c3a44;
       border-radius: 50%;
+      border: 2px solid #1e1c28;
       transform: translate(-50%, -50%);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.40);
+      box-shadow: 2px 2px 0 #1e1c28;
       pointer-events: none;
       transition: transform 0.05s ease-out;
       will-change: transform;
     }
 
     /* ── SELECT / START
-       Flat dark charcoal recessed pills, angled, labels below
+       Small dark rectangles, angled, pixel shadow, labels below
     ── */
     #center-buttons {
       flex: 0 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .mid-btn-wrap {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
 
     .mid-btn-label {
-      color: #9e9aa4;
-      font-family: Arial, sans-serif;
-      font-size: 0.32rem;
-      letter-spacing: 0.14em;
-      font-weight: 700;
+      font-family: 'Press Start 2P', monospace;
+      color: #6a6878;
+      font-size: 0.26rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
     .mid-btn {
-      background: #4e4c4e;
-      border: none;
-      border-radius: 18px;
-      width: 42px;
+      background: #3c3a44;
+      border: 2px solid #1e1c28;
+      border-radius: 2px;
+      width: 40px;
       height: 12px;
       cursor: pointer;
-      box-shadow:
-        inset 0 2px 4px rgba(0,0,0,0.50),
-        inset 0 -1px 1px rgba(255,255,255,0.06);
+      box-shadow: 2px 2px 0 #1e1c28;
       user-select: none;
       -webkit-user-select: none;
-      transform: rotate(-18deg);
-      transition: opacity 0.06s, transform 0.06s;
+      transform: rotate(-16deg);
+      transition: transform 0.06s, box-shadow 0.06s;
       font-size: 0;
     }
 
     .mid-btn:active {
-      opacity: 0.75;
-      transform: rotate(-18deg) scale(0.93);
+      transform: rotate(-16deg) translate(2px, 2px);
+      box-shadow: none;
     }
 
-    /* ── FACE BUTTON PLATFORM
-       Key from illustration:
-       - Base: medium gray with slight purple #9898a8
-       - Diagonal band (lighter top-right / darker bottom-left)
-       - Same size circle as d-pad outer ring
-    ── */
+    /* ══════════════════════════════════════════
+       FACE BUTTONS — Diamond: X=12, A=3, B=6, Y=9
+       Circular platform with pixel border
+       8-bit style: square buttons, hard shadows,
+       clear letter labels in pixel font
+       ══════════════════════════════════════════ */
     #face-platform {
       flex: 0 0 auto;
       position: relative;
-      width: 162px;
-      height: 162px;
-      background:
-        /* Diagonal shade — bright upper-right, shadow lower-left */
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,0.13) 0%,
-          rgba(255,255,255,0.06) 40%,
-          transparent             50%,
-          rgba(0,0,0,0.08)       60%,
-          rgba(0,0,0,0.14)       100%
-        ),
-        #9898a8;
+      width: 160px;
+      height: 160px;
+      background: #9898a8;
       border-radius: 50%;
-      box-shadow:
-        inset 0 3px 10px rgba(0,0,0,0.22),
-        0 2px 8px rgba(0,0,0,0.18);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 24px;
+      border: 3px solid #6a6878;
+      box-shadow: 3px 3px 0 #4a4858;
     }
 
-    /* Labels: float in platform margin, muted lavender-gray */
-    .face-label {
-      position: absolute;
-      font-family: Arial, sans-serif;
-      font-size: 0.54rem;
-      font-weight: 700;
-      color: rgba(195, 190, 215, 0.72);
-      letter-spacing: 0.02em;
-      pointer-events: none;
-      user-select: none;
-    }
-    #lbl-x { top: 13px; left: 20px; }
-    #lbl-y { top: 13px; right: 20px; }
-    #lbl-b { bottom: 13px; left: 20px; }
-    #lbl-a { bottom: 13px; right: 20px; }
-
-    .face-row { display: flex; gap: 10px; }
-
-    /* Shared button base */
+    /* 8-bit face buttons — square with hard pixel shadow */
     .face-btn {
-      width: 50px;
-      height: 50px;
-      border: none;
-      border-radius: 50%;
-      font-size: 0;
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      border-radius: 3px;               /* barely rounded = blocky */
+      border: 2px solid #2a1848;
+      background: #7868c0;              /* flat purple, all same base */
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: #e8e0f8;
+      text-shadow: 1px 1px 0 #2a1848;
+      box-shadow: 3px 3px 0 #2a1848;   /* hard pixel shadow */
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
-      transition: transform 0.07s, filter 0.07s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.06s, transform 0.06s;
     }
 
+    /* Press = shift down-right into the shadow */
     .face-btn:active {
-      transform: scale(0.90);
-      filter: brightness(0.88);
+      transform: translate(3px, 3px);
+      box-shadow: none;
     }
 
-    /* ── Top row (X, Y): lighter lavender
-       Matches illustration's upper two lighter buttons
-    ── */
-    #btn-x, #btn-y {
-      background:
-        radial-gradient(ellipse 60% 50% at 38% 28%,
-          rgba(255,255,255,0.65) 0%,
-          rgba(255,255,255,0.18) 40%,
-          transparent 62%),
-        #c0b8e4;
-      box-shadow:
-        0 4px 0 #9888c8,
-        0 5px 10px rgba(0,0,0,0.25);
+    /* ── Diamond positions ── */
+    /* X — 12 o'clock */
+    #btn-x {
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #8878d0;
+    }
+    #btn-x:active {
+      transform: translate(calc(-50% + 3px), 13px);
+      box-shadow: none;
     }
 
-    /* ── Bottom row (B, A): deeper purple
-       Matches illustration's lower two darker buttons
-    ── */
-    #btn-b, #btn-a {
-      background:
-        radial-gradient(ellipse 60% 50% at 38% 28%,
-          rgba(255,255,255,0.45) 0%,
-          rgba(255,255,255,0.10) 40%,
-          transparent 62%),
-        #6858a8;
-      box-shadow:
-        0 4px 0 #4a3a88,
-        0 5px 10px rgba(0,0,0,0.32);
+    /* A — 3 o'clock */
+    #btn-a {
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #6858b8;
+    }
+    #btn-a:active {
+      transform: translate(3px, calc(-50% + 3px));
+      box-shadow: none;
+    }
+
+    /* B — 6 o'clock */
+    #btn-b {
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #6858b8;
+    }
+    #btn-b:active {
+      transform: translate(calc(-50% + 3px), -3px);
+      box-shadow: none;
+    }
+
+    /* Y — 9 o'clock */
+    #btn-y {
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #8878d0;
+    }
+    #btn-y:active {
+      transform: translate(3px, calc(-50% + 3px));
+      box-shadow: none;
     }
 
     /* Loading overlay */
@@ -377,19 +378,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #888;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
+      color: #5a5870;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.10em;
       z-index: 100;
     }
 
     /* Desktop hint */
     #kb-hint {
-      color: #888480;
-      font-size: 0.44rem;
-      letter-spacing: 0.08em;
+      font-family: 'Press Start 2P', monospace;
+      color: #6a6878;
+      font-size: 0.28rem;
+      letter-spacing: 0.06em;
       text-align: center;
-      padding: 6px 0 0;
+      padding: 8px 0 0;
+      line-height: 1.8;
       display: none;
     }
 
@@ -452,21 +456,12 @@
         </div>
       </div>
 
-      <!-- Face buttons: 2×2 — X top-left, Y top-right, B btm-left, A btm-right -->
-      <!-- Labels float in the well, not on the caps (matches real controller) -->
+      <!-- Face buttons: diamond — X=12, A=3, B=6, Y=9 o'clock -->
       <div id="face-platform">
-        <span class="face-label" id="lbl-x" aria-hidden="true">X</span>
-        <span class="face-label" id="lbl-y" aria-hidden="true">Y</span>
-        <span class="face-label" id="lbl-b" aria-hidden="true">B</span>
-        <span class="face-label" id="lbl-a" aria-hidden="true">A</span>
-        <div class="face-row">
-          <button class="face-btn" id="btn-x" aria-label="X"></button>
-          <button class="face-btn" id="btn-y" aria-label="Y"></button>
-        </div>
-        <div class="face-row">
-          <button class="face-btn" id="btn-b" aria-label="B"></button>
-          <button class="face-btn" id="btn-a" aria-label="A"></button>
-        </div>
+        <button class="face-btn" id="btn-x" aria-label="X">X</button>
+        <button class="face-btn" id="btn-a" aria-label="A">A</button>
+        <button class="face-btn" id="btn-b" aria-label="B">B</button>
+        <button class="face-btn" id="btn-y" aria-label="Y">Y</button>
       </div>
 
     </div><!-- /controls-row -->
