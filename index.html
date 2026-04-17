@@ -28,9 +28,11 @@
       overflow: hidden;
     }
 
-    /* ── CONSOLE TOP — match bottom color ── */
+    /* ─────────────────────────────────────────────
+       CONSOLE TOP — light warm gray matching image
+       ───────────────────────────────────────────── */
     #console-top {
-      background: #c0bcb4;
+      background: #d2cec8;
       padding: 7px 7px 5px;
       display: flex;
       flex-direction: column;
@@ -38,11 +40,12 @@
       gap: 5px;
     }
 
+    /* Subtle embossed label like "SUPER NINTENDO" text on controller */
     .system-label {
-      color: #888480;
-      font-size: 0.58rem;
+      color: #b4b0ac;
+      font-size: 0.52rem;
       font-weight: bold;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.32em;
       text-transform: uppercase;
       text-align: center;
       align-self: center;
@@ -51,10 +54,10 @@
     /* Screen */
     #screen-bezel {
       width: 100%;
-      background: #2a2830;
+      background: #262430;
       border-radius: 6px;
       padding: 5px;
-      box-shadow: inset 0 3px 10px rgba(0,0,0,0.6), inset 0 0 0 2px #18161e;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.65), inset 0 0 0 2px #161420;
     }
 
     #screen-wrapper {
@@ -121,33 +124,34 @@
     #cart-slot {
       flex: 1;
       height: 4px;
-      background: #a8a49c;
+      background: #bab6b0;
       border-radius: 2px;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
     }
 
     .game-title {
-      color: #888480;
-      font-size: 0.48rem;
+      color: #a8a4a0;
+      font-size: 0.46rem;
       font-weight: bold;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       text-align: center;
     }
 
-    /* ── CONSOLE BOTTOM — same SNES gray, slightly deeper ── */
+    /* ─────────────────────────────────────────────
+       CONSOLE BOTTOM — exact same light warm gray
+       ───────────────────────────────────────────── */
     #console-bottom {
-      background: #c0bcb4;
-      padding: 0 10px 50px;
+      background: #d2cec8;
+      padding: 0 10px 52px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0;
       border-radius: 0 0 44px 44px;
-      box-shadow: inset 0 3px 8px rgba(0,0,0,0.12);
     }
 
-    /* Shoulder buttons row */
+    /* Shoulder buttons — slightly darker warm gray */
     #shoulder-row {
       display: flex;
       width: 100%;
@@ -157,8 +161,8 @@
     }
 
     .shoulder-btn {
-      background: #a8a49c;
-      color: #6a6660;
+      background: #bcb8b2;
+      color: #888480;
       font-family: 'Courier New', monospace;
       font-size: 0.6rem;
       font-weight: bold;
@@ -168,7 +172,7 @@
       width: 52px;
       height: 22px;
       cursor: pointer;
-      box-shadow: 0 3px 0 #888480, 0 4px 4px rgba(0,0,0,0.3);
+      box-shadow: 0 3px 0 #9e9a94, 0 4px 6px rgba(0,0,0,0.25);
       user-select: none;
       -webkit-user-select: none;
       transition: transform 0.06s, box-shadow 0.06s;
@@ -176,7 +180,7 @@
 
     .shoulder-btn:active {
       transform: translateY(2px);
-      box-shadow: 0 1px 0 #888480;
+      box-shadow: 0 1px 0 #9e9a94;
     }
 
     /* Main controls row */
@@ -185,11 +189,13 @@
       width: 100%;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      min-height: 140px;
+      gap: 14px;
+      min-height: 150px;
     }
 
-    /* ── D-PAD (Virtual Joystick) ── */
+    /* ─────────────────────────────────────────────
+       D-PAD — circular platform same as face well
+       ───────────────────────────────────────────── */
     #dpad-area {
       flex: 0 0 auto;
       display: flex;
@@ -197,173 +203,180 @@
       justify-content: center;
     }
 
+    /* Outer circle matches face-platform: medium lavender-gray */
     #joystick-container {
       position: relative;
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle at 40% 35%, #6e6a64, #4a4640);
+      width: 108px;
+      height: 108px;
+      background: radial-gradient(circle at 44% 40%, #bab6c4, #9e9aac);
       border-radius: 50%;
-      border: 2px solid #3e3a36;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+      border: none;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.22), 0 2px 6px rgba(0,0,0,0.18);
       touch-action: none;
       cursor: pointer;
     }
 
+    /* Inner stick = dark charcoal cross, like the d-pad in photo */
     #joystick-stick {
       position: absolute;
       top: 50%; left: 50%;
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle at 35% 30%, #8e8a84, #6a6660);
+      width: 46px;
+      height: 46px;
+      background: radial-gradient(circle at 38% 32%, #6a6868, #3c3a3a);
       border-radius: 50%;
       transform: translate(-50%, -50%);
-      border: 1px solid #5a5650;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.06);
       pointer-events: none;
       transition: transform 0.05s ease-out;
       will-change: transform;
     }
 
-    /* ── CENTER BUTTONS (SELECT / START) — diagonal pill buttons ── */
+    /* ─────────────────────────────────────────────
+       SELECT / START — dark charcoal diagonal pills
+       ───────────────────────────────────────────── */
     #center-buttons {
       flex: 0 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
-    /* Label sits below each pill */
     .mid-btn-wrap {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
     }
 
     .mid-btn-label {
-      color: #7a7670;
-      font-size: 0.36rem;
-      letter-spacing: 0.12em;
-      font-weight: bold;
+      color: #9e9a96;
+      font-family: Arial, sans-serif;
+      font-size: 0.34rem;
+      letter-spacing: 0.14em;
+      font-weight: 600;
       text-transform: uppercase;
     }
 
     .mid-btn {
-      /* Narrow elongated oval, rotated diagonally */
-      background: linear-gradient(to bottom, #7a7670, #5e5a56);
+      background: linear-gradient(170deg, #686462, #484442);
       border: none;
       border-radius: 20px;
-      width: 46px;
-      height: 14px;
+      width: 44px;
+      height: 13px;
       cursor: pointer;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 2px rgba(255,255,255,0.08),
-                  0 2px 4px rgba(0,0,0,0.3);
+      /* Recessed pill — strong inset shadows */
+      box-shadow:
+        inset 0 2px 5px rgba(0,0,0,0.55),
+        inset 0 -1px 2px rgba(255,255,255,0.07),
+        0 1px 3px rgba(0,0,0,0.3);
       user-select: none;
       -webkit-user-select: none;
-      transform: rotate(-20deg);
+      transform: rotate(-18deg);
       transition: box-shadow 0.06s, transform 0.06s;
-      /* No text on pill — label is below */
       font-size: 0;
     }
 
     .mid-btn:active {
-      box-shadow: inset 0 3px 6px rgba(0,0,0,0.55), inset 0 -1px 2px rgba(255,255,255,0.05);
-      transform: rotate(-20deg) scale(0.95);
+      box-shadow:
+        inset 0 3px 7px rgba(0,0,0,0.65),
+        inset 0 -1px 1px rgba(255,255,255,0.04);
+      transform: rotate(-18deg) scale(0.94);
     }
 
-    /* ── FACE BUTTONS — 2×2 on recessed circular well ── */
+    /* ─────────────────────────────────────────────
+       FACE BUTTONS — 2×2 on circular platform
+       Platform: same medium lavender-gray as d-pad
+       Top row (X,Y): lighter lavender
+       Bottom row (B,A): deeper purple
+       ───────────────────────────────────────────── */
     #face-platform {
       flex: 0 0 auto;
-      position: relative;          /* needed for absolute label positioning */
-      width: 160px;
-      height: 160px;
-      /*
-        Platform matches photo: medium lavender-gray, clearly distinct
-        from the warm-gray body but NOT as dark as pure mauve.
-        Photo shows ~#9090a8 tone with slight depth.
-      */
-      background:
-        radial-gradient(ellipse at 46% 40%, #9e9cb4, #7e7c96);
+      position: relative;
+      width: 162px;
+      height: 162px;
+      background: radial-gradient(circle at 46% 42%, #bab6c4, #9e9aac);
       border-radius: 50%;
       box-shadow:
-        inset 0 5px 14px rgba(0,0,0,0.38),
-        inset 0 2px 4px rgba(0,0,0,0.20),
-        0 0 0 1.5px rgba(255,255,255,0.12),   /* rim catch-light */
-        0 3px 8px rgba(0,0,0,0.22);
+        inset 0 4px 12px rgba(0,0,0,0.28),
+        inset 0 1px 3px rgba(0,0,0,0.16),
+        0 0 0 1px rgba(255,255,255,0.10),
+        0 3px 8px rgba(0,0,0,0.18);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 22px;
+      padding: 24px;
     }
 
-    /* Labels float in the gray platform — not on the button caps */
+    /* Labels float in platform margin — muted lavender, not neon */
     .face-label {
       position: absolute;
       font-family: Arial, sans-serif;
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       font-weight: 600;
-      /*
-        From photo: letters are same lavender as body text — muted,
-        not white, not neon. Barely-there but legible.
-      */
-      color: rgba(210, 205, 235, 0.82);
-      letter-spacing: 0.04em;
+      color: rgba(180, 175, 200, 0.78);
+      letter-spacing: 0.03em;
       pointer-events: none;
       user-select: none;
     }
-    /* Corner positions matching 2×2 layout */
-    #lbl-x { top:  11px; left:  20px; }   /* top-left  */
-    #lbl-y { top:  11px; right: 20px; }   /* top-right */
-    #lbl-b { bottom: 11px; left:  20px; } /* btm-left  */
-    #lbl-a { bottom: 11px; right: 20px; } /* btm-right */
+    #lbl-x { top: 12px; left: 18px; }
+    #lbl-y { top: 12px; right: 18px; }
+    #lbl-b { bottom: 12px; left: 18px; }
+    #lbl-a { bottom: 12px; right: 18px; }
 
-    .face-row {
-      display: flex;
-      gap: 10px;
-    }
+    .face-row { display: flex; gap: 10px; }
 
+    /* All buttons: glossy dome cap */
     .face-btn {
       width: 50px;
       height: 50px;
       border: none;
       border-radius: 50%;
-      /* No text on cap — labels float in well */
       font-size: 0;
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
       transition: transform 0.07s, box-shadow 0.07s;
-      /*
-        Glossy dome cap — 3 gradient layers:
-        1. Strong oval specular at upper-left (light catching convex surface)
-        2. Faint lower bounce-light
-        3. Lavender base matching photo
-      */
-      background:
-        radial-gradient(ellipse 55% 45% at 38% 24%,
-          rgba(255,255,255,0.70) 0%,
-          rgba(255,255,255,0.22) 35%,
-          transparent 58%),
-        radial-gradient(ellipse at 62% 78%,
-          rgba(255,255,255,0.07) 0%,
-          transparent 45%),
-        radial-gradient(circle at 50% 55%, #b4a8e4, #7868bc);
-      box-shadow:
-        0 4px 0 rgba(60,48,140,0.70),       /* hard cast shadow = raised dome */
-        0 6px 14px rgba(0,0,0,0.36),
-        inset 0 -4px 6px rgba(0,0,0,0.20),  /* lower inside shadow = curvature */
-        inset 0 2px 3px rgba(255,255,255,0.22); /* top rim light */
     }
 
-    .face-btn:active {
-      transform: scale(0.91);
+    .face-btn:active { transform: scale(0.91); }
+
+    /* ── Top row: X and Y — lighter lavender (matches photo's top buttons) */
+    #btn-x, #btn-y {
+      background:
+        radial-gradient(ellipse 58% 48% at 36% 22%,
+          rgba(255,255,255,0.72) 0%,
+          rgba(255,255,255,0.20) 38%,
+          transparent 60%),
+        radial-gradient(circle at 50% 58%, #ccc0f0, #9888d8);
       box-shadow:
-        0 1px 0 rgba(60,48,140,0.60),
-        0 2px 5px rgba(0,0,0,0.30),
-        inset 0 4px 10px rgba(0,0,0,0.42);
+        0 4px 0 rgba(88,68,168,0.60),
+        0 5px 12px rgba(0,0,0,0.30),
+        inset 0 -3px 5px rgba(0,0,0,0.18),
+        inset 0 2px 2px rgba(255,255,255,0.24);
+    }
+    #btn-x:active, #btn-y:active {
+      box-shadow: 0 1px 0 rgba(88,68,168,0.50), inset 0 3px 8px rgba(0,0,0,0.38);
+    }
+
+    /* ── Bottom row: B and A — deeper purple (matches photo's bottom buttons) */
+    #btn-b, #btn-a {
+      background:
+        radial-gradient(ellipse 58% 48% at 36% 22%,
+          rgba(255,255,255,0.52) 0%,
+          rgba(255,255,255,0.12) 38%,
+          transparent 60%),
+        radial-gradient(circle at 50% 58%, #8878c8, #5648a0);
+      box-shadow:
+        0 4px 0 rgba(44,32,100,0.70),
+        0 5px 12px rgba(0,0,0,0.36),
+        inset 0 -3px 5px rgba(0,0,0,0.22),
+        inset 0 2px 2px rgba(255,255,255,0.16);
+    }
+    #btn-b:active, #btn-a:active {
+      box-shadow: 0 1px 0 rgba(44,32,100,0.55), inset 0 3px 8px rgba(0,0,0,0.45);
     }
 
     /* Loading overlay */
