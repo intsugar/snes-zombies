@@ -98,8 +98,8 @@
       inset: 0;
       background: repeating-linear-gradient(
         to bottom,
-        transparent 0px, transparent 2px,
-        rgba(0,0,0,0.18) 2px, rgba(0,0,0,0.18) 4px
+        transparent 0px, transparent 3px,
+        rgba(0,0,0,0.05) 3px, rgba(0,0,0,0.05) 4px
       );
       pointer-events: none;
       z-index: 10;
@@ -244,7 +244,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 5px;
+      gap: 10px;
     }
 
     .mid-btn-label {
@@ -292,12 +292,12 @@
       box-shadow: 3px 3px 0 #4a4858;
     }
 
-    /* 8-bit face buttons — square with hard pixel shadow */
+    /* 8-bit face buttons — circular with hard pixel shadow */
     .face-btn {
       position: absolute;
       width: 44px;
       height: 44px;
-      border-radius: 3px;               /* barely rounded = blocky */
+      border-radius: 50%;               /* circular */
       border: 2px solid #2a1848;
       background: #7868c0;              /* flat purple, all same base */
       font-family: 'Press Start 2P', monospace;
