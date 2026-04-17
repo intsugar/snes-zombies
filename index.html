@@ -224,36 +224,52 @@
       will-change: transform;
     }
 
-    /* ── CENTER BUTTONS (SELECT / START) ── */
+    /* ── CENTER BUTTONS (SELECT / START) — diagonal pill buttons ── */
     #center-buttons {
       flex: 0 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+    }
+
+    /* Label sits below each pill */
+    .mid-btn-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .mid-btn-label {
+      color: #7a7670;
+      font-size: 0.36rem;
+      letter-spacing: 0.12em;
+      font-weight: bold;
+      text-transform: uppercase;
     }
 
     .mid-btn {
-      background: #888480;
-      color: #ccc8c0;
-      font-family: 'Courier New', monospace;
-      font-size: 0.42rem;
-      font-weight: bold;
-      letter-spacing: 0.1em;
+      /* Narrow elongated oval, rotated diagonally */
+      background: linear-gradient(to bottom, #7a7670, #5e5a56);
       border: none;
-      border-radius: 10px;
-      width: 52px;
-      height: 16px;
+      border-radius: 20px;
+      width: 46px;
+      height: 14px;
       cursor: pointer;
-      box-shadow: 0 2px 0 #5a5650, 0 3px 4px rgba(0,0,0,0.3);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), inset 0 -1px 2px rgba(255,255,255,0.08),
+                  0 2px 4px rgba(0,0,0,0.3);
       user-select: none;
       -webkit-user-select: none;
-      transition: transform 0.06s, box-shadow 0.06s;
+      transform: rotate(-20deg);
+      transition: box-shadow 0.06s, transform 0.06s;
+      /* No text on pill — label is below */
+      font-size: 0;
     }
 
     .mid-btn:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 0 #5a5650;
+      box-shadow: inset 0 3px 6px rgba(0,0,0,0.55), inset 0 -1px 2px rgba(255,255,255,0.05);
+      transform: rotate(-20deg) scale(0.95);
     }
 
     /* ── FACE BUTTONS — 2×2 on recessed circular well ── */
@@ -382,10 +398,16 @@
         </div>
       </div>
 
-      <!-- Select / Start -->
+      <!-- Select / Start — diagonal pill buttons -->
       <div id="center-buttons">
-        <button class="mid-btn" id="btn-select" aria-label="Select">SELECT</button>
-        <button class="mid-btn" id="btn-start"  aria-label="Start">START</button>
+        <div class="mid-btn-wrap">
+          <button class="mid-btn" id="btn-select" aria-label="Select"></button>
+          <span class="mid-btn-label">Select</span>
+        </div>
+        <div class="mid-btn-wrap">
+          <button class="mid-btn" id="btn-start" aria-label="Start"></button>
+          <span class="mid-btn-label">Start</span>
+        </div>
       </div>
 
       <!-- Face buttons: 2×2 grid — X top-left, Y top-right, B bottom-left, A bottom-right -->
