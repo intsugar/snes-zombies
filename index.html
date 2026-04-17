@@ -11,7 +11,7 @@
       background: #1a1a1a;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       min-height: 100vh;
       font-family: 'Courier New', monospace;
       padding: 10px 0 20px;
@@ -23,46 +23,47 @@
       max-width: 540px;
       display: flex;
       flex-direction: column;
-      border-radius: 18px 18px 40px 40px;
+      border-radius: 18px 18px 44px 44px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 2px 4px rgba(0,0,0,0.5);
       overflow: hidden;
     }
 
-    /* ── CONSOLE TOP ── */
+    /* ── CONSOLE TOP — SNES warm off-white gray ── */
     #console-top {
-      background: #8c8c9e;
-      padding: 14px 14px 10px;
+      background: #ccc8c0;
+      padding: 7px 7px 5px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 5px;
     }
 
     .system-label {
-      color: #3a3a5c;
-      font-size: 0.62rem;
+      color: #888480;
+      font-size: 0.58rem;
       font-weight: bold;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      align-self: flex-start;
+      text-align: center;
+      align-self: center;
     }
 
     /* Screen */
     #screen-bezel {
       width: 100%;
-      background: #2a2a3e;
-      border-radius: 8px;
-      padding: 10px;
-      box-shadow: inset 0 3px 10px rgba(0,0,0,0.6), inset 0 0 0 2px #1a1a2a;
+      background: #2a2830;
+      border-radius: 6px;
+      padding: 5px;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.6), inset 0 0 0 2px #18161e;
     }
 
     #screen-wrapper {
       position: relative;
       width: 100%;
-      padding-bottom: 75%; /* SNES native 256×224 ≈ 8:7 ratio → ~87.5%, use ~75% for comfortable display */
+      padding-bottom: 75%;
       background: #000;
       overflow: hidden;
-      border-radius: 4px;
+      border-radius: 3px;
     }
 
     #game {
@@ -94,21 +95,21 @@
       z-index: 10;
     }
 
-    /* LED + eject row */
+    /* LED + cart row */
     #led-row {
       display: flex;
       width: 100%;
       align-items: center;
-      gap: 8px;
-      padding: 0 4px;
+      gap: 6px;
+      padding: 0 3px;
     }
 
     #power-led {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #44ee44;
-      box-shadow: 0 0 6px #44ee44, 0 0 12px rgba(68,238,68,0.5);
+      background: #ee2222;
+      box-shadow: 0 0 6px #ee2222, 0 0 12px rgba(238,34,34,0.5);
       animation: blink 3s ease-in-out infinite;
     }
 
@@ -119,30 +120,31 @@
 
     #cart-slot {
       flex: 1;
-      height: 5px;
-      background: #6a6a7e;
+      height: 4px;
+      background: #a8a49c;
       border-radius: 2px;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
     }
 
     .game-title {
-      color: #3a3a5c;
-      font-size: 0.5rem;
+      color: #888480;
+      font-size: 0.48rem;
       font-weight: bold;
       letter-spacing: 0.15em;
       text-transform: uppercase;
+      text-align: center;
     }
 
-    /* ── CONSOLE BOTTOM (CONTROLLER) ── */
+    /* ── CONSOLE BOTTOM — same SNES gray, slightly deeper ── */
     #console-bottom {
-      background: #7a7a8e;
-      padding: 0 10px 46px;
+      background: #c0bcb4;
+      padding: 0 10px 50px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0;
-      border-radius: 0 0 40px 40px;
-      box-shadow: inset 0 3px 8px rgba(0,0,0,0.2);
+      border-radius: 0 0 44px 44px;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.12);
     }
 
     /* Shoulder buttons row */
@@ -155,8 +157,8 @@
     }
 
     .shoulder-btn {
-      background: #5a5a70;
-      color: #ccc;
+      background: #a8a49c;
+      color: #6a6660;
       font-family: 'Courier New', monospace;
       font-size: 0.6rem;
       font-weight: bold;
@@ -166,7 +168,7 @@
       width: 52px;
       height: 22px;
       cursor: pointer;
-      box-shadow: 0 3px 0 #3a3a50, 0 4px 4px rgba(0,0,0,0.4);
+      box-shadow: 0 3px 0 #888480, 0 4px 4px rgba(0,0,0,0.3);
       user-select: none;
       -webkit-user-select: none;
       transition: transform 0.06s, box-shadow 0.06s;
@@ -174,7 +176,7 @@
 
     .shoulder-btn:active {
       transform: translateY(2px);
-      box-shadow: 0 1px 0 #3a3a50;
+      box-shadow: 0 1px 0 #888480;
     }
 
     /* Main controls row */
@@ -184,7 +186,7 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      min-height: 130px;
+      min-height: 140px;
     }
 
     /* ── D-PAD (Virtual Joystick) ── */
@@ -199,10 +201,10 @@
       position: relative;
       width: 100px;
       height: 100px;
-      background: radial-gradient(circle at 40% 35%, #4a4a62, #2a2a3e);
+      background: radial-gradient(circle at 40% 35%, #6e6a64, #4a4640);
       border-radius: 50%;
-      border: 2px solid #3a3a52;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
+      border: 2px solid #3e3a36;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
       touch-action: none;
       cursor: pointer;
     }
@@ -212,17 +214,17 @@
       top: 50%; left: 50%;
       width: 40px;
       height: 40px;
-      background: radial-gradient(circle at 35% 30%, #7a7a9a, #4a4a6a);
+      background: radial-gradient(circle at 35% 30%, #8e8a84, #6a6660);
       border-radius: 50%;
       transform: translate(-50%, -50%);
-      border: 1px solid #3a3a5a;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      border: 1px solid #5a5650;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
       pointer-events: none;
       transition: transform 0.05s ease-out;
       will-change: transform;
     }
 
-    /* ── CENTER BUTTONS ── */
+    /* ── CENTER BUTTONS (SELECT / START) ── */
     #center-buttons {
       flex: 0 0 auto;
       display: flex;
@@ -232,8 +234,8 @@
     }
 
     .mid-btn {
-      background: #4a4a60;
-      color: #aaa;
+      background: #888480;
+      color: #ccc8c0;
       font-family: 'Courier New', monospace;
       font-size: 0.42rem;
       font-weight: bold;
@@ -243,7 +245,7 @@
       width: 52px;
       height: 16px;
       cursor: pointer;
-      box-shadow: 0 2px 0 #2a2a40, 0 3px 4px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 0 #5a5650, 0 3px 4px rgba(0,0,0,0.3);
       user-select: none;
       -webkit-user-select: none;
       transition: transform 0.06s, box-shadow 0.06s;
@@ -251,40 +253,30 @@
 
     .mid-btn:active {
       transform: translateY(1px);
-      box-shadow: 0 1px 0 #2a2a40;
+      box-shadow: 0 1px 0 #5a5650;
     }
 
-    /* ── FACE BUTTONS PLATFORM ── */
+    /* ── FACE BUTTONS — diamond layout on circular platform ── */
     #face-platform {
       flex: 0 0 auto;
       position: relative;
       width: 148px;
       height: 148px;
-      background: radial-gradient(circle at 42% 38%, #a0a0b8, #7a7a92);
+      background: radial-gradient(circle at 42% 38%, #b8b4ac, #a0a098);
       border-radius: 50%;
-      box-shadow: inset 0 3px 8px rgba(0,0,0,0.35), 0 3px 8px rgba(0,0,0,0.3);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 20px;
-    }
-
-    .face-row {
-      display: flex;
-      gap: 10px;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.2), 0 2px 6px rgba(0,0,0,0.2);
     }
 
     .face-btn {
-      width: 48px;
-      height: 48px;
+      position: absolute;
+      width: 46px;
+      height: 46px;
       border: none;
       border-radius: 50%;
       font-family: 'Courier New', monospace;
       font-size: 0.68rem;
       font-weight: bold;
-      color: rgba(255,255,255,0.9);
+      color: rgba(255,255,255,0.88);
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
@@ -292,15 +284,44 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      letter-spacing: 0;
-      /* All same purple — American SNES */
-      background: radial-gradient(circle at 38% 32%, #b0a0dd, #7a68bb);
-      box-shadow: 0 4px 0 #5548a0, 0 5px 8px rgba(0,0,0,0.4);
     }
 
-    .face-btn:active {
-      transform: scale(0.92);
-      box-shadow: 0 1px 0 #5548a0;
+    .face-btn:active { transform: scale(0.92) !important; }
+
+    /* X and Y — lighter lavender */
+    #btn-x, #btn-y {
+      background: radial-gradient(circle at 38% 32%, #c0b0e8, #9080cc);
+      box-shadow: 0 4px 0 #6858aa, 0 5px 8px rgba(0,0,0,0.3);
+    }
+    #btn-x:active, #btn-y:active { box-shadow: 0 1px 0 #6858aa !important; }
+
+    /* B and A — darker purple */
+    #btn-b, #btn-a {
+      background: radial-gradient(circle at 38% 32%, #7a60b8, #5040a0);
+      box-shadow: 0 4px 0 #342880, 0 5px 8px rgba(0,0,0,0.4);
+    }
+    #btn-b:active, #btn-a:active { box-shadow: 0 1px 0 #342880 !important; }
+
+    /* Diamond positions: X=12, A=3, B=6, Y=9 */
+    #btn-x {
+      top: 9px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    #btn-a {
+      right: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    #btn-b {
+      bottom: 9px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    #btn-y {
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     /* Loading overlay */
@@ -311,7 +332,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #8c8c9e;
+      color: #888;
       font-size: 0.75rem;
       letter-spacing: 0.15em;
       z-index: 100;
@@ -319,8 +340,8 @@
 
     /* Desktop hint */
     #kb-hint {
-      color: #555;
-      font-size: 0.48rem;
+      color: #888480;
+      font-size: 0.44rem;
       letter-spacing: 0.08em;
       text-align: center;
       padding: 6px 0 0;
@@ -335,9 +356,8 @@
 <body>
 <div id="console">
 
-  <!-- TOP: system label + screen -->
+  <!-- TOP: screen then system label centered below -->
   <div id="console-top">
-    <div class="system-label">Super Nintendo</div>
 
     <div id="screen-bezel">
       <div id="screen-wrapper">
@@ -350,6 +370,8 @@
       <div id="power-led"></div>
       <div id="cart-slot"></div>
     </div>
+
+    <div class="system-label">Super Nintendo</div>
 
     <div class="game-title">Zombies Ate My Neighbors</div>
   </div>
@@ -379,16 +401,12 @@
         <button class="mid-btn" id="btn-start"  aria-label="Start">START</button>
       </div>
 
-      <!-- Face buttons: 2×2 on circular platform (American SNES layout) -->
+      <!-- Face buttons: diamond on circular platform X=12, A=3, B=6, Y=9 -->
       <div id="face-platform">
-        <div class="face-row">
-          <button class="face-btn" id="btn-y" aria-label="Y">Y</button>
-          <button class="face-btn" id="btn-x" aria-label="X">X</button>
-        </div>
-        <div class="face-row">
-          <button class="face-btn" id="btn-b" aria-label="B">B</button>
-          <button class="face-btn" id="btn-a" aria-label="A">A</button>
-        </div>
+        <button class="face-btn" id="btn-x" aria-label="X">X</button>
+        <button class="face-btn" id="btn-a" aria-label="A">A</button>
+        <button class="face-btn" id="btn-b" aria-label="B">B</button>
+        <button class="face-btn" id="btn-y" aria-label="Y">Y</button>
       </div>
 
     </div><!-- /controls-row -->
